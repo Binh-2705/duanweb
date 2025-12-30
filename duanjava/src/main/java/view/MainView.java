@@ -38,10 +38,12 @@ public class MainView extends JFrame {
         menuDanhMuc = new JMenuItem("Danh mục sản phẩm");
         menuSanPham = new JMenuItem("Sản phẩm");
         menuDonVi = new JMenuItem("Đơn vị tính");
+
         menuKho = new JMenuItem("Kho");
         menuViTri = new JMenuItem("Vị trí lưu trữ");
         menuTonKho = new JMenuItem("Tồn kho");
         menuDieuChinhTon = new JMenuItem("Điều chỉnh tồn");
+
         menuNhap = new JMenuItem("Phiếu nhập");
         menuXuat = new JMenuItem("Phiếu xuất");
         menuKiemKe = new JMenuItem("Kiểm kê");
@@ -107,4 +109,3 @@ public class MainView extends JFrame {
         setVisible(true);
     }
 }
-

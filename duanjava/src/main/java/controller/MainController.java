@@ -6,17 +6,13 @@ import view.MainView;
 import view.SanphamView;
 import view.NhaCungCapView;
 import view.KhachHangView;
+// Thêm import cho các module mới
 import view.KhoView;
 import view.ViTriKhoView;
 import view.TonKhoView;
 import view.DieuChinhTonView;
+// Thêm import JOptionPane
 import javax.swing.JOptionPane;
-import view.PhieuNhapView;
-import view.PhieuXuatView;
-import view.PhieuKiemKeView;
-import view.NhaCungCapView;
-import controller.NhaCungCapController;
-import view.KhachHangView;
 
 public class MainController {
 
@@ -28,24 +24,13 @@ public class MainController {
     }
 
     private void addEvents() {
-
         // ========== QUẢN LÝ SẢN PHẨM ==========
-
         // Sự kiện Danh mục
         view.menuDanhMuc.addActionListener(e -> {
             DanhmucView dv = new DanhmucView();
             new DanhmucController(dv);
             dv.setVisible(true);
         });
-
-
-        // Sự kiện Đơn vị
-        view.menuDonVi.addActionListener(e -> {
-            DonviView dv = new DonviView();
-            new DonviController(dv);
-            dv.setVisible(true);
-        });
-
 
         // Sự kiện Sản phẩm
         view.menuSanPham.addActionListener(e -> {
@@ -54,7 +39,6 @@ public class MainController {
             sp.setVisible(true);
         });
 
-        
         // Sự kiện Đơn vị
         view.menuDonVi.addActionListener(e -> {
             DonviView dv = new DonviView();
@@ -85,7 +69,7 @@ public class MainController {
         });
         
         // Thêm vào phương thức addEvents() trong MainController.java, sau sự kiện menuTonKho:
-        // Sự kiện Điều chỉnh tồn
+// Sự kiện Điều chỉnh tồn
         view.menuDieuChinhTon.addActionListener(e -> {
             DieuChinhTonView dctv = new DieuChinhTonView();
             new DieuChinhTonController(dctv);
@@ -99,7 +83,7 @@ public class MainController {
             new KhachHangController(khV);
             khV.setVisible(true);
         });
-        
+
         // Sự kiện Nhà cung cấp
         view.menuNCC.addActionListener(e -> {
             NhaCungCapView nccV = new NhaCungCapView();
@@ -107,42 +91,30 @@ public class MainController {
             nccV.setVisible(true);
         });
 
-        // ========== NHẬP – KIỂM KÊ ==========
+        // ========== NHẬP – XUẤT – KIỂM KÊ ==========
+        // Sự kiện Phiếu nhập (tạm thời để trống)
         view.menuNhap.addActionListener(e -> {
-            PhieuNhapView pnv = new PhieuNhapView(); 
-            new PhieuNhapController(pnv);         
-            pnv.setVisible(true);               
+            JOptionPane.showMessageDialog(view, "Chức năng Phiếu nhập đang phát triển...");
         });
 
-        // ========== XUAT ==========
+        // Sự kiện Phiếu xuất (tạm thời để trống)
         view.menuXuat.addActionListener(e -> {
-            PhieuXuatView pxv = new PhieuXuatView(); 
-            new PhieuXuatController(pxv);      
-            pxv.setVisible(true);        
-        }); 
+            JOptionPane.showMessageDialog(view, "Chức năng Phiếu xuất đang phát triển...");
+        });
 
         // Sự kiện Kiểm kê (tạm thời để trống)
         view.menuKiemKe.addActionListener(e -> {
-            PhieuKiemKeView pkView = new PhieuKiemKeView();
-            new PhieuKiemKeController(pkView);
-            pkView.setVisible(true);
+            JOptionPane.showMessageDialog(view, "Chức năng Kiểm kê đang phát triển...");
         });
 
-        
-        
-        
-        
         // ========== BÁO CÁO ==========
         // Sự kiện Báo cáo tổng hợp (tạm thời để trống)
         view.menuBaoCao.addActionListener(e -> {
             JOptionPane.showMessageDialog(view, "Chức năng Báo cáo tổng hợp đang phát triển...");
         });
 
-        
-        
         // Thêm chức năng Điều chỉnh tồn kho (tạm thời có thể mở qua menu Tồn kho)
         // Hoặc bạn có thể thêm menu item riêng
-        
     }
 
     // Phương thức để mở form Điều chỉnh tồn kho
@@ -150,12 +122,5 @@ public class MainController {
         DieuChinhTonView dctv = new DieuChinhTonView();
         new DieuChinhTonController(dctv);
         dctv.setVisible(true);
-        //Sự kiện Khách hàng (Khi bạn làm xong KhachHangView)
-       
-        view.menuKhach.addActionListener(e -> {
-            KhachHangView khV = new KhachHangView();
-            new KhachHangController(khV);
-            khV.setVisible(true);
-        });
     }
 }
