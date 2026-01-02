@@ -5,14 +5,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class KhachHangView extends JFrame {
-    public JTextField txtID, txtTen, txtSdt, txtDiaChi, txtEmail;
+    public JTextField txtID, txtTen, txtSdt, txtDiaChi, txtEmail, txtTimKiem;
     public JButton btnThem, btnSua, btnXoa, btnLamMoi;
     public JTable tblKhachHang;
     public DefaultTableModel tableModel;
 
     public KhachHangView() {
         setTitle("Quản lý Khách hàng");
-        setSize(900, 600);
+        setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -28,6 +28,8 @@ public class KhachHangView extends JFrame {
 
         // Main Content
         JPanel pnlMain = new JPanel(new BorderLayout());
+        
+        // --- LEFT PANEL: NHẬP LIỆU ---
         JPanel pnlLeft = new JPanel();
         pnlLeft.setLayout(new BoxLayout(pnlLeft, BoxLayout.Y_AXIS));
         pnlLeft.setPreferredSize(new Dimension(300, 0));
@@ -57,10 +59,20 @@ public class KhachHangView extends JFrame {
 
         pnlMain.add(pnlLeft, BorderLayout.WEST);
 
+        // --- RIGHT PANEL: TÌM KIẾM & BẢNG ---
+        JPanel pnlRight = new JPanel(new BorderLayout());
+        
+        JPanel pnlSearch = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlSearch.add(new JLabel("Tìm kiếm (Tên/SĐT):"));
+        txtTimKiem = new JTextField(25);
+        pnlSearch.add(txtTimKiem);
+        pnlRight.add(pnlSearch, BorderLayout.NORTH);
+
         tableModel = new DefaultTableModel(new String[]{"ID", "Tên", "SĐT", "Địa chỉ", "Email"}, 0);
         tblKhachHang = new JTable(tableModel);
-        pnlMain.add(new JScrollPane(tblKhachHang), BorderLayout.CENTER);
+        pnlRight.add(new JScrollPane(tblKhachHang), BorderLayout.CENTER);
 
+        pnlMain.add(pnlRight, BorderLayout.CENTER);
         add(pnlMain, BorderLayout.CENTER);
     }
 }

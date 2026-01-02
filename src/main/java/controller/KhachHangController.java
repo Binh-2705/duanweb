@@ -6,6 +6,8 @@ import view.KhachHangView;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class KhachHangController {
     private KhachHangView view;
@@ -19,14 +21,18 @@ public class KhachHangController {
     }
 
     private void loadTable() {
+        updateTable(dao.getAll());
+    }
+
+    private void updateTable(ArrayList<KhachHang> list) {
         view.tableModel.setRowCount(0);
-        ArrayList<KhachHang> list = dao.getAll();
         for (KhachHang k : list) {
             view.tableModel.addRow(new Object[]{k.getId(), k.getTen(), k.getSdt(), k.getDiaChi(), k.getEmail()});
         }
     }
 
     private void addEvents() {
+        // Sự kiện Click bảng
         view.tblKhachHang.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -38,6 +44,18 @@ public class KhachHangController {
                     view.txtDiaChi.setText(view.tableModel.getValueAt(row, 3).toString());
                     view.txtEmail.setText(view.tableModel.getValueAt(row, 4).toString());
                 }
+            }
+        });
+
+        // Xử lý Tìm kiếm Real-time
+        view.txtTimKiem.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { handleSearch(); }
+            public void removeUpdate(DocumentEvent e) { handleSearch(); }
+            public void changedUpdate(DocumentEvent e) { handleSearch(); }
+            
+            private void handleSearch() {
+                String keyword = view.txtTimKiem.getText();
+                updateTable(dao.search(keyword));
             }
         });
 
@@ -60,7 +78,11 @@ public class KhachHangController {
             }
         });
 
-        view.btnLamMoi.addActionListener(e -> clearForm());
+        view.btnLamMoi.addActionListener(e -> {
+            clearForm();
+            view.txtTimKiem.setText("");
+            loadTable();
+        });
     }
 
     private void clearForm() {

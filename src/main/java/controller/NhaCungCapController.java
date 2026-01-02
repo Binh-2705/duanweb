@@ -6,6 +6,8 @@ import view.NhaCungCapView;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class NhaCungCapController {
     private NhaCungCapView view;
@@ -19,14 +21,18 @@ public class NhaCungCapController {
     }
 
     private void loadTable() {
+        updateTable(dao.getAll());
+    }
+
+    private void updateTable(ArrayList<NhaCungCap> list) {
         view.tableModel.setRowCount(0);
-        ArrayList<NhaCungCap> list = dao.getAll();
         for (NhaCungCap n : list) {
             view.tableModel.addRow(new Object[]{n.getId(), n.getTen(), n.getSdt(), n.getDiaChi(), n.getEmail()});
         }
     }
 
     private void addEvents() {
+        // Click bảng hiện lên Form
         view.tblNCC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -38,6 +44,18 @@ public class NhaCungCapController {
                     view.txtDiaChi.setText(view.tableModel.getValueAt(row, 3).toString());
                     view.txtEmail.setText(view.tableModel.getValueAt(row, 4).toString());
                 }
+            }
+        });
+
+        // Xịn nhất là ở đây: Gõ tới đâu tìm tới đó
+        view.txtTimKiem.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { handleSearch(); }
+            public void removeUpdate(DocumentEvent e) { handleSearch(); }
+            public void changedUpdate(DocumentEvent e) { handleSearch(); }
+            
+            private void handleSearch() {
+                String keyword = view.txtTimKiem.getText();
+                updateTable(dao.search(keyword));
             }
         });
 
@@ -60,7 +78,11 @@ public class NhaCungCapController {
             }
         });
 
-        view.btnLamMoi.addActionListener(e -> clearForm());
+        view.btnLamMoi.addActionListener(e -> {
+            clearForm();
+            view.txtTimKiem.setText("");
+            loadTable();
+        });
     }
 
     private void clearForm() {

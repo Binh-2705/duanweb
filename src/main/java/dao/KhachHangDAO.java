@@ -54,4 +54,23 @@ public class KhachHangDAO {
             ps.executeUpdate();
         } catch (Exception e) { e.printStackTrace(); }
     }
+    
+    // tìm kiếm
+    public ArrayList<KhachHang> search(String keyword) {
+        ArrayList<KhachHang> list = new ArrayList<>();
+        String sql = "SELECT * FROM KhachHang WHERE ten LIKE ? OR sdt LIKE ?";
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new KhachHang(
+                    rs.getInt("id"), rs.getString("ten"),
+                    rs.getString("sdt"), rs.getString("diaChi"), rs.getString("email")
+                ));
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+}
 }

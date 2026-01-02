@@ -22,6 +22,25 @@ public class NhaCungCapDAO {
         return list;
     }
 
+    // tìm kiếm  
+    public ArrayList<NhaCungCap> search(String keyword) {
+        ArrayList<NhaCungCap> list = new ArrayList<>();
+        String sql = "SELECT * FROM NhaCungCap WHERE ten LIKE ? OR diaChi LIKE ?";
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new NhaCungCap(
+                    rs.getInt("id"), rs.getString("ten"),
+                    rs.getString("sdt"), rs.getString("diaChi"), rs.getString("email")
+                ));
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return list;
+    }
+
     public void insert(NhaCungCap ncc) {
         try (Connection conn = db.getConnection()) {
             String sql = "INSERT INTO NhaCungCap(ten, sdt, diaChi, email) VALUES (?, ?, ?, ?)";

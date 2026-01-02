@@ -41,7 +41,6 @@ public class MainView extends JFrame {
         menuKho = new JMenuItem("Kho");
         menuViTri = new JMenuItem("Vị trí lưu trữ");
         menuTonKho = new JMenuItem("Tồn kho");
-        menuDieuChinhTon = new JMenuItem("Điều chỉnh tồn");
         menuNhap = new JMenuItem("Phiếu nhập");
         menuXuat = new JMenuItem("Phiếu xuất");
         menuKiemKe = new JMenuItem("Kiểm kê");
@@ -57,7 +56,7 @@ public class MainView extends JFrame {
         menu2.add(menuKho);
         menu2.add(menuViTri);
         menu2.add(menuTonKho);
-        menu2.add(menuDieuChinhTon);
+
 
         menu3.add(menuNhap);
         menu3.add(menuXuat);
